@@ -1,0 +1,47 @@
+* {
+  font-size: 16px;
+}
+
+body {
+  text-align: center;
+}
+
+#wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+#container{
+  width: 300px;
+  margin-bottom: 3rem;
+}
+
+h1 {
+  font-size: 4rem;
+  font-weight: bold;
+  color: purple;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: red;
+}
+
+#restart {
+  margin: 0 auto;
+  display: none;
+  font-size: 1.5rem;
+  color: purple;
+  background-color: #FFF;
+  border: 2px solid purple;
+  border-radius: 10% 10%;
+  padding: 5px;
+}
+
+#restart:hover {
+  color: #FFF;
+  background-color: purple;
+}

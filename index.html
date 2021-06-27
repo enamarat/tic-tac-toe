@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Tic-tac-toe</title>
+    <link href="./styles/reset.css" type="text/css" rel="stylesheet">
+    <link href="./styles/styles.css" type="text/css" rel="stylesheet">
+    <meta name="robots" content="noindex">
+  </head>
+  <body>
+    <h1>Tic-tac-toe</h1>
+    <h2 id="turn-status"> Player 1, it's your turn! </h2>
+    <div id="wrapper">
+      <div id="container">
+        <svg id="field" preserveAspectRatio="xMidYMid meet" viewBox="0 0 215 215">
+          <line x1="70" y1="0" x2="70" y2="215" stroke="black" stroke-width="10" />
+          <line x1="145" y1="0" x2="145" y2="215" stroke="black" stroke-width="10" />
+          <line x1="0" y1="70" x2="215" y2="70" stroke="black" stroke-width="10" />
+          <line x1="0" y1="145" x2="215" y2="145" stroke="black" stroke-width="10" />
+        </svg>
+      </div>
+    </div>
+          <button id="restart">Restart</button>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
