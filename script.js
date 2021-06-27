@@ -70,35 +70,59 @@ const drawAFigure = (row, column) => {
    drawnField.innerHTML += figure;
 }
 
-const endGame = (playerName) => {
+const endGame = (playerName, type, number) => {
   turnStatus.textContent = `Player ${player} won!`;
   gameOver = true;
   setTimeout(() => {
       document.querySelector("#restart").style.display = "block";
   }, 500);
+
+  // draw a line over three figures which brought victory
+  let finalLine = null;
+  if (type === "row") {
+    finalLine = `<line id="final-line" x1="5" y1=${32.5+75*number} x2="215" y2=${32.5+75*number} stroke="yellow" stroke-width="10" />`;
+  }
+
+  if (type === "column") {
+    finalLine = `<line id="final-line" x1=${32.5+75*number} y1="5" x2=${32.5+75*number} y2="210" stroke="yellow" stroke-width="10" />`;
+  }
+
+  if (type === "diagonal" && number === 1) {
+    finalLine = `<line id="final-line" x1="5" y1="5" x2="210" y2="210" stroke="yellow" stroke-width="10" />`;
+  }
+
+  if (type === "diagonal" && number === 2) {
+    finalLine = `<line id="final-line" x1="210" y1="5" x2="5" y2="210" stroke="yellow" stroke-width="10" />`;
+  }
+
+  drawnField.innerHTML += finalLine;
 }
 
 const checkForWinner = () => {
- for (let i = 0; i < field.length; i++) {
-    if (
-    // check rows
-    (field[i][0] == "x" && field[i][1] == "x" && field[i][2] == "x") ||
-    (field[i][0] == "0" && field[i][1] == "0" && field[i][2] == "0") ||
-    // check columns
-    (field[0][i] == "x" && field[1][i] == "x" && field[2][i] == "x") ||
-    (field[0][i] == "0" && field[1][i] == "0" && field[2][i] == "0")
-    ) {
-          endGame(player);
-      }
- }
+  for (let i = 0; i < field.length; i++) {
+     // check rows
+     if ((field[i][0] == "x" && field[i][1] == "x" && field[i][2] == "x") ||
+        (field[i][0] == "0" && field[i][1] == "0" && field[i][2] == "0")) {
+       endGame(player, "row", i);
+     }
+
+     // check columns
+     if ((field[0][i] == "x" && field[1][i] == "x" && field[2][i] == "x") ||
+         (field[0][i] == "0" && field[1][i] == "0" && field[2][i] == "0")) {
+      endGame(player, "column", i);
+     }
+  }
+
    // check diagonals
-   if (
-     (field[0][0] == "x" && field[1][1] == "x" && field[2][2] == "x") ||
-     (field[0][2] == "x" && field[1][1] == "x" && field[2][0] == "x") ||
-     (field[0][0] == "0" && field[1][1] == "0" && field[2][2] == "0") ||
-     (field[0][2] == "0" && field[1][1] == "0" && field[2][0] == "0")
-   ) {
-     endGame(player);
+   if ( (field[0][0] == "x" && field[1][1] == "x" && field[2][2] == "x") ||
+        (field[0][0] == "0" && field[1][1] == "0" && field[2][2] == "0")
+    ) {
+     endGame(player, "diagonal", 1);
+   }
+
+   if ((field[0][2] == "x" && field[1][1] == "x" && field[2][0] == "x") ||
+      (field[0][2] == "0" && field[1][1] == "0" && field[2][0] == "0")) {
+      endGame(player, "diagonal", 2);
    }
 
    // check for a draw
@@ -117,6 +141,11 @@ const checkForWinner = () => {
 
 const fillTheCell = () => {
   const coordinates = getMouseCoordinates(event);
+  // exit function if a player clicked on grid's edges instead of cells
+  if (coordinates[0] == null || coordinates[1] == null) {
+    return 0;
+  }
+
   if (field[coordinates[0]][coordinates[1]] === null
     && gameOver === false) {
     turns++;
